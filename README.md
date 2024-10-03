@@ -1,2 +1,2 @@
-# snake-detection
+# Snake-detection
 Automatic Snake detection using AI technique
