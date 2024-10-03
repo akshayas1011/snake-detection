@@ -3,7 +3,6 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import os
 
-
 def createModel(train_data=None):
     if os.path.exists('./model/model1.h5') and train_data is None:
         try:
