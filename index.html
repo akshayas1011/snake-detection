@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction</title>
+    <style>
+        body {
+            background-image: url('/static/3.jpg');
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        form:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .drag-drop-area {
+            min-width: 200px; /* Set a minimum width */
+            width: auto; 
+            height: 100px;
+            border: 2px dashed rgb(0, 255, 119);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-image 0.3s ease-in-out;
+            
+        }
+
+       
+
+        .drag-drop-text {
+            text-align: center;
+        }
+
+        .image_input {
+            display: none;
+        }
+
+        .submit_button {
+            width: 100%;
+            padding: 10px;
+            background-image: linear-gradient(198deg,rgb(0, 255, 119),rgb(250, 192, 97),rgb(211, 37, 37));
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-image 0.3s ease-in-out;
+            margin-top: 5px;
+            font-family: cursive;
+            font-size: 20px;
+        }
+
+        .submit_button:hover {
+            background-image: linear-gradient(333deg,rgb(0, 255, 119),rgb(250, 192, 97),rgb(211, 37, 37));
+        }
+        .image-preview{
+            
+            border-radius:20px;
+            width: 100px;
+            height: 100px;
+        }
+        figure{
+            margin: 20px 100px;
+            color:rgb(211, 37, 37);
+        }
+
+    </style>
+</head>
+<body>
+    <form action="{{ url_for('Upload') }}" method='POST' enctype="multipart/form-data" id="uploadForm">
+        <div class="drag-drop-area" id="dragDropArea">
+            <div class="drag-drop-text">Drag & Drop or Click to Upload</div>
+            <input type="file" class="image_input" id="file" name="image">
+        </div>
+        <div id="imagePreviewContainer" class="image-preview-container" style="display: none;">
+            <figure>
+                <figcaption>Image Preview</figcaption>
+                <img id="imagePreview" class="image-preview" alt="Image Preview">
+                
+            </figure>
+           
+            <span></span>
+        </div>
+        <input type="submit" class="submit_button" value="Submit">
+    </form>
+
+   <!-- ... previous HTML code ... -->
+
+<!-- ... previous HTML code ... -->
+
+<script>
+    const dragDropArea = document.getElementById("dragDropArea");
+    const fileInput = document.getElementById("file");
+    const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+    const imagePreview = document.getElementById("imagePreview");
+
+    dragDropArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dragDropArea.style.borderColor = "#2980b9";
+    });
+
+    dragDropArea.addEventListener("dragleave", () => {
+        dragDropArea.style.borderColor = "#3498db";
+    });
+
+    dragDropArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dragDropArea.style.borderColor = "#3498db";
+        const files = e.dataTransfer.files;
+        fileInput.files = files;
+        updateTextAndPreview(files);
+    });
+
+    dragDropArea.addEventListener("click", () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener("change", () => {
+        const files = fileInput.files;
+        updateTextAndPreview(files);
+    });
+
+    function updateTextAndPreview(files) {
+        if (files.length > 0) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(files[0]);
+
+            dragDropArea.querySelector(".drag-drop-text").innerText = files[0].name;
+
+            // Show the image preview container
+            imagePreviewContainer.style.display = "block";
+        } else {
+            // Clear the image preview and hide the container
+            imagePreview.src = "";
+            imagePreviewContainer.style.display = "none";
+            
+            dragDropArea.querySelector(".drag-drop-text").innerText = "Drag & Drop or Click to Upload";
+        }
+    }
+</script>
+
+<!-- ... remaining HTML code ... -->
+
+
+
+<!-- ... remaining HTML code ... -->
+
+
+</body>
+
+</html>
