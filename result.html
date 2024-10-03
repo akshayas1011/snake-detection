@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <style>
+        body {
+            background-image: url('/static/3.jpg');
+            background-repeat: no-repeat;
+            background-size: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: cursive;
+        
+            
+           
+        }
+
+        .card-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            animation: fadeIn 1s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <h1>Result</h1>
+        <p>Predicted Class: {{ value }}</p>
+        <p>Venomous Status: {{ venomous_status }}</p>
+        <img src="{{ url_for('static', filename='uploader/1.png') }}" width="320px" height="320px" alt="">
+    </div>
+</body>
+</html>
